@@ -1,5 +1,13 @@
 ### Hi there 👋
 
+My name is Howard Li 
+
+From Shanghai, China, I am currently a student at Bowdoin College majored in Mathematics and Economics. 
+
+For the past two years, I have been an investor and media influencer in the world of crypto and NFTs. I had experience working with top crypto exchanges, VCs, and the largest investment DAO. Currently, I lead one of the largest Asian Blue-chip NFT communities with 500 members on WeChat, over 4000 on Discord, and over 40K on Twitter.
+
+Now, I am transitioning into the tech field with an aim of going to MFE program after graduating college. You can find some of my work here.
+
 <!--
 **HowardLiYH/HowardLiYH** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
