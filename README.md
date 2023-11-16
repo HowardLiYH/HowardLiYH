@@ -10,7 +10,7 @@ From Shanghai, China, I am currently a student at Bowdoin College majoring in Ma
 
 For the past two years, I have been an investor and media influencer in the world of crypto and NFTs. I have experience working with top crypto exchanges, VCs, and large investment funds, and have led one of the largest Asian Blue-chip NFT communities. Now I am on the journey of learning Machine Learning, Deep Learning, and Natural Language Processing. Stay tuned for my endless adventures!
 
-### Skills
+### Programming Languages
 <p>
   <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
   <img src="https://img.shields.io/badge/Markdown-000000?style=for-the-badge&logo=markdown&logoColor=white" />
