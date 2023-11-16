@@ -10,26 +10,14 @@ From Shanghai, China, I am currently a student at Bowdoin College majoring in Ma
 
 For the past two years, I have been an investor and media influencer in the world of crypto and NFTs. I have experience working with top crypto exchanges, VCs, and large investment funds, and have led one of the largest Asian Blue-chip NFT communities. Now I am on the journey of learning Machine Learning, Deep Learning, and Natural Language Processing. Stay tuned for my endless adventures!
 
-### Programming Languages
+### Skills
 <p>
   <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
   <img src="https://img.shields.io/badge/Markdown-000000?style=for-the-badge&logo=markdown&logoColor=white" />
   <img src="https://img.shields.io/badge/Shell_Script-121011?style=for-the-badge&logo=gnu-bash&logoColor=white" />
-</p>
-
-### Cloud Computing 
-<p>
   <img src="https://img.shields.io/badge/Google_Cloud-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white" />
   <img src="https://img.shields.io/badge/Amazon_AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white" />
-</p>
-
-### Artificial Intelligence 
-<p>
   <img src="https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white" />
-</p>
-
-### Database
-<p>
   <img src="https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white" />
   <img src="https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white" />
 </p>
