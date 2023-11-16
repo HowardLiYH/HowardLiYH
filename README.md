@@ -1,24 +1,27 @@
-### Hi there 👋
+# Hi there 👋
+
+<div id="header" align="center">
+  <img src="https://media.giphy.com/media/M9gbBd9nbDrOTu1Mqx/giphy.gif" width="100"/>
+</div>
 
 My name is Howard Li 
 
-From Shanghai, China, I am currently a student at Bowdoin College majored in Mathematics and Economics. 
+From Shanghai, China, I am currently a student at Bowdoin College majoring in Mathematics and Economics. 
 
-For the past two years, I have been an investor and media influencer in the world of crypto and NFTs. I had experience working with top crypto exchanges, VCs, large investment funds, and have led one of the largest Asian Blue-chip NFT communities.
+For the past two years, I have been an investor and media influencer in the world of crypto and NFTs. I have experience working with top crypto exchanges, VCs, and large investment funds, and have led one of the largest Asian Blue-chip NFT communities. Now I am on the journey of learning Machine Learning, Deep Learning, and Natural Language Processing. Stay tuned for my endless adventures!
 
-Now, I am transitioning into the tech field with a focus in Machine Learning and Quantitative Finance. You can find some of my work here.
+### Programming Language
+<p>
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
+</p>
 
-<!--
-**HowardLiYH/HowardLiYH** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+### Database
+<p>
+  <img src="https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white" />
+  <img src="https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white" />
+</p>
 
-Here are some ideas to get you started:
-
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+### Social Media
+[![Visits Badge](https://badges.pufler.dev/visits/braydoncoyer/braydoncoyer)](https:braydoncoyer.dev)
+[![Twitter Badge](https://img.shields.io/badge/Twitter-Profile-informational?style=flat&logo=twitter&logoColor=white&color=1CA2F1)](https://twitter.com/howarrd_li)
+[![LinkedIn Badge](https://img.shields.io/badge/LinkedIn-Profile-informational?style=flat&logo=linkedin&logoColor=white&color=0D76A8)](https://www.linkedin.com/in/howard-l-a5359b140/)
