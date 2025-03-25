@@ -6,9 +6,9 @@
 
 My name is Howard Li 
 
-From Shanghai, China, I am currently a student at Bowdoin College majoring in Mathematics and Economics. 
+From Shanghai, China, I am an incoming Master's student at UPenn's Applied Math and Computational Science program. I finished my Bachelor of Arts (BA) at Bowdoin College, majoring in Mathematics and Economics.
 
-For the past two years, I have been an investor and media influencer in the world of crypto and NFTs. I have experience working with top crypto exchanges, VCs, and large investment funds, and have led one of the largest Asian Blue-chip NFT communities. Now I am on the journey of learning Machine Learning, Deep Learning, and Natural Language Processing. Stay tuned for my endless adventures!
+My current interest and intended research areas revolve around various applications of computer vision techniques.
 
 
 ### Social Media
