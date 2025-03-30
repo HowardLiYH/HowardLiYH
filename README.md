@@ -6,7 +6,7 @@
 
 My name is Howard Li 
 
-From Shanghai, China, I am an incoming Master's student at UPenn's Applied Math and Computational Science program. I finished my Bachelor of Arts (BA) at Bowdoin College, majoring in Mathematics and Economics.
+From Shanghai, China, I am an incoming Master's student at UPenn's Applied Math and Computational Science program. I completed my Bachelor of Arts (BA) at Bowdoin College, majoring in Mathematics and Economics.
 
 My current interest and intended research areas revolve around various applications of computer vision techniques.
 
