@@ -8,7 +8,7 @@ My name is Howard Li
 
 From Shanghai, China, I am a Master's student at UPenn's Applied Math and Computational Science program. I completed my Bachelor of Arts at Bowdoin College, majoring in Mathematics and Economics.
 
-I research Distributed Combinatorial Optimization using Large Language Models.My work treats Multi-Agent Systems as a Combinatorial Assignment Problem, where the goal is to optimize the bipartite matching between $N$ agents and $R$ tasks without central control. I develop population-based metaheuristics (specifically, competitive exclusion dynamics) that act as a decentralized solver, empirically achieving near-optimal resource allocation and 100% of the theoretical performance ceiling on complex allocation benchmarks.
+I research Distributed Combinatorial Optimization using Large Language Models. My work treats Multi-Agent Systems as a Combinatorial Assignment Problem, where the goal is to optimize the bipartite matching between $N$ agents and $R$ tasks without central control. I develop population-based metaheuristics (specifically, competitive exclusion dynamics) that act as a decentralized solver, empirically achieving near-optimal resource allocation and 100% of the theoretical performance ceiling on complex allocation benchmarks.
 
 
 ### Social Media
