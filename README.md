@@ -8,9 +8,7 @@ My name is Howard Li
 
 From Shanghai, China, I am a Master's student at UPenn's Applied Math and Computational Science program. I completed my Bachelor of Arts at Bowdoin College, majoring in Mathematics and Economics.
 
-I focus on the intersection of LLM Agents and Evolutionary Optimization. My current research investigates how populations of agents (both LLM and Replicators) spontaneously partition into diverse specialists through competitive exclusion.
-
-My work relies on rigorous empirical analysis (large-scale ablation studies, statistical effect size validation) to demonstrate that diversity is an emergent property of competition—achieving 100% theoretical ceiling performance on specialized tasks without gradient-based training.
+I research Distributed Combinatorial Optimization using Large Language Models.My work treats Multi-Agent Systems as a Combinatorial Assignment Problem, where the goal is to optimize the bipartite matching between $N$ agents and $R$ tasks without central control. I develop population-based metaheuristics (specifically, competitive exclusion dynamics) that act as a decentralized solver, empirically achieving near-optimal resource allocation and 100% of the theoretical performance ceiling on complex allocation benchmarks.
 
 
 ### Social Media
