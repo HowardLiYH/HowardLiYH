@@ -4,7 +4,9 @@
   <img src="https://media.giphy.com/media/M9gbBd9nbDrOTu1Mqx/giphy.gif" width="100"/>
 </div> -->
 
-![Cover](https://github.com/user-attachments/assets/24b4cc14-db45-42cc-8f9d-91d85ca173bf)
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/24b4cc14-db45-42cc-8f9d-91d85ca173bf" width="50%" />
+</div>
 
 
 
