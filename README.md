@@ -14,23 +14,28 @@ I am a Master's student at **UPenn** (Applied Math & Computational Science) and 
 
 ### 🔭 Research Vision: The Post-Scaling Era
 
-> **"Scale is hitting diminishing returns. The next breakthrough lies in efficiency, biological inspiration, and emergent behavior."**
+**"The next gains won't come from bigger monoliths, but from populations of specialists — and from deciding who is allowed to keep knowing things when the world moves on."**
 
-I believe the future of AI will not be defined by monolithic models, but by the **efficient coordination** of specialized agent populations. My research operationalizes biological dynamics to create systems that are not just smarter, but drastically more efficient and adaptable than scaling alone allows.
+I operationalize ecological dynamics (competitive exclusion, niche partitioning) to build learner populations that self-organize, retain dormant expertise that reward-chasing systems provably destroy, and stay calibrated to environments that return changed.
 
 ---
 
 ### 🧪 Current Research Focus
-**Distributed Combinatorial Optimization for Generative Agents**
+**Emergent specialization and memory in learner populations under non-stationarity**
 
-To realize this vision, I treat Multi-Agent Systems not as a prompt engineering task, but as a **Combinatorial Assignment Problem**. The goal is to optimize the bipartite matching between *N* agents and *R* tasks without central control.
 
-Instead of manual prompting or standard RL, I develop **population-based metaheuristics** (specifically, competitive exclusion dynamics) to search the discrete strategy space of Large Language Models. This approach functions as a **decentralized solver**, empirically achieving near-optimal resource allocation—effectively solving the **Maximum Weight Matching problem** in a gradient-free setting.
+- GAUSE (https://github.com/HowardLiYH/GAUSE) — competitive exclusion as a coordination-free assignment mechanism. Central finding: retention of dormant-regime knowledge tracks a single property — reward-independence of capacity assignment. Reward-driven allocators (monoliths, learned MoE routers) are structurally blind to dormant tasks; emergent competition reaches the protective assignment with no gate, schedule, or diversity objective, matching a hand-designed oracle it was never shown.
+- RISP (https://github.com/HowardLiYH/RISP) — the financial successor: decision-focused (predict-then-optimize) strategy pools. Decomposes market non-stationarity into two independently-owned failure modes — between-regime forgetting (fixed by allocation) and within-regime drift (fixed by an episode-invariance objective) — with a super-additive interaction: neither fix works without the other. Includes the honest audits: a pre-registered real-data gate that returned null (shipped, not buried) and a measured boundary where the mechanism inverts.
+- NicheMem (https://github.com/HowardLiYH/NicheMem) (context space) — the same principle transported to long-horizon agent memory: usage-driven policies (LRU paging, usage-weighted compression, learned utility) erase dormant-family skills as a class — what the score measures is irrelevant; that it is a function of the usage stream is decisive. Competitive memory ownership retains dormant runbooks exactly, recovering 97% of a privileged oracle with no labels, quotas, or trained router. Mechanism-level evidence today; the LLM tier is pre-registered (10 predictions, 4 refuted and reported).
+
+### ⬇️ Next 
+- porting reward-independent retention to populations of LLM agents — capacity becomes context and memory, dormancy becomes stale expertise. The mechanism is validated; the substrate is the open question.
+- NicheMem's LLM tier — the decisive gate experiment its pre-registration commits to — and RISP's equities flagship (CRSP, 7 crisis episodes, gate pre-registered).
 
 **Key Results:**
-* 🚀 **Efficiency:** Converges to the theoretical performance ceiling (Oracle Accuracy).
-* 🧠 **Emergence:** Specialization arises from local competition, not central design.
-* 📉 **Resource Economy:** Achieves these results with **99% less memory** than standard MARL baselines.
+* 🚀 **Efficiency:** matches hand-built oracles without being shown them (GAUSE, RISP p=0.72, NicheMem 97%) on laptop CPUs;
+* 🧠 **Emergence:** specialization and ownership arise from local competition, never central design; 
+* 🔍 **Honesty:** every project pre-registers predictions and ships its refutations — across the three repos, seven pre-registered predictions were refuted and reported as findings.
 
 ---
 
