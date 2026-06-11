@@ -1,259 +1,252 @@
-"""Profile banner in the GAUSE-cover style: toy robots with glowing screen
-faces on a holographic grid floor, sunrise city backdrop.
-GAUSE / RISP / NicheMem."""
+"""Futuristic neon-holo research banner: shaded 3D-look characters,
+synthwave grid, glass panels. GAUSE / RISP / NicheMem."""
 import numpy as np
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import matplotlib.patheffects as pe
-from matplotlib.patches import (Circle, Ellipse, FancyBboxPatch, Polygon, Arc,
-                                Rectangle)
+from matplotlib.patches import (Circle, Ellipse, FancyBboxPatch, Polygon, Arc)
 from matplotlib.colors import LinearSegmentedColormap, to_rgb
 
 plt.rcParams["font.family"] = "Arial Rounded MT Bold"
 
-NAVY = "#1B2350"
-SCREEN = "#10173A"
-CYAN = "#4FE8F7"
-AMBER = "#FFA85B"
-W, H = 16.0, 6.4
-HOR = 2.35                       # horizon
+INK = "#3A2B6B"
+CYAN = "#1FA8C9"
+MAGENTA = "#D45BB8"
+VIOLET = "#7B5BD9"
+AMBER = "#E8973C"
+MINT = "#2BA86B"
+CORAL = "#E86355"
 
+W, H = 16.0, 6.0
 fig, ax = plt.subplots(figsize=(W, H), dpi=170)
 ax.set_xlim(0, W); ax.set_ylim(0, H); ax.axis("off")
 
-# ------------------------------------------------------------------ sky
+# ---------------------------------------------------------------- background
 grad = np.linspace(0, 1, 512).reshape(-1, 1)
-sky = LinearSegmentedColormap.from_list(
-    "sky", ["#FFD9B0", "#F2CFE0", "#C9D4F2", "#B8C6F0"])
-ax.imshow(grad, extent=(0, W, HOR, H), cmap=sky, origin="lower",
+sky = LinearSegmentedColormap.from_list("sky", ["#E4DBF7", "#F6E6F2",
+                                                "#FFF6E3"])
+ax.imshow(grad, extent=(0, W, 0, H), cmap=sky, origin="upper",
           aspect="auto", zorder=0)
-# sunrise glow
-N = 300
-u = np.linspace(-1, 1, N)
-xx, yy = np.meshgrid(u, u)
-rr = np.sqrt(xx ** 2 + yy ** 2)
-glow = np.clip(1 - rr, 0, 1) ** 2.2
-img = np.zeros((N, N, 4))
-img[..., :3] = np.array(to_rgb("#FFE2B8"))
-img[..., 3] = glow * 0.9
-ax.imshow(img, extent=(8 - 4.6, 8 + 4.6, HOR - 1.4, HOR + 3.2),
-          origin="lower", zorder=1, interpolation="bilinear")
+rng = np.random.default_rng(5)
+for _ in range(46):                                   # confetti dots
+    x, y = rng.uniform(0, W), rng.uniform(1.1, H)
+    s = rng.uniform(0.4, 1.6)
+    c = rng.choice([CYAN, AMBER, VIOLET, MAGENTA])
+    ax.plot(x, y, ".", ms=s, color=c, alpha=rng.uniform(0.2, 0.5), zorder=1)
 
-# ------------------------------------------------------------- city skyline
-rng = np.random.default_rng(8)
-def skyline(y0, hmin, hmax, color, alpha, n, z, wmin=0.35, wmax=0.9):
-    x = 0.0
-    while x < W:
-        w = rng.uniform(wmin, wmax)
-        h = rng.uniform(hmin, hmax)
-        ax.add_patch(Rectangle((x, y0), w, h, fc=color, ec="none",
-                               alpha=alpha, zorder=z))
-        if rng.random() < 0.5:    # antenna
-            ax.plot([x + w / 2, x + w / 2], [y0 + h, y0 + h + 0.22],
-                    color=color, lw=1.0, alpha=alpha, zorder=z)
-        # windows
-        for _ in range(int(h * w * 14)):
-            wxp = rng.uniform(x + 0.05, x + w - 0.05)
-            wyp = rng.uniform(y0 + 0.08, y0 + h - 0.08)
-            ax.plot(wxp, wyp, ",", color="#FFEFC9",
-                    alpha=alpha * rng.uniform(0.4, 1.0), zorder=z)
-        x += w + rng.uniform(0.05, 0.35)
-skyline(HOR, 0.7, 1.9, "#9FB0DE", 0.55, 18, 2)
-skyline(HOR, 0.35, 1.0, "#7E92C9", 0.75, 24, 3)
+# synthwave perspective grid (vanishing point at center horizon)
+hy, vx = 1.55, W / 2
+for i, t in enumerate(np.linspace(0, 1, 9)[1:]):      # horizontal lines
+    y = hy - 1.55 * t ** 1.7
+    a = 0.38 - 0.3 * t
+    ax.plot([0, W], [y, y], color=MAGENTA, lw=1.0, alpha=max(a * 0.7, 0.05),
+            zorder=1)
+for dx in np.linspace(-22, 22, 23):                   # radial verticals
+    ax.plot([vx, vx + dx], [hy, 0], color=MAGENTA, lw=0.8, alpha=0.11,
+            zorder=1)
+ax.plot([0, W], [hy, hy], color=MAGENTA, lw=1.6, alpha=0.35, zorder=1)
+ax.plot([0, W], [hy, hy], color=MAGENTA, lw=5, alpha=0.12, zorder=1)
 
-# circuit traces, top corners
-def trace(x0, y0, pts, color="#FFFFFF", a=0.5):
-    xs, ys = [x0], [y0]
-    for dx, dy in pts:
-        xs.append(xs[-1] + dx); ys.append(ys[-1] + dy)
-    ax.plot(xs, ys, color=color, lw=1.0, alpha=a, zorder=4)
-    ax.plot(xs[-1], ys[-1], "o", ms=2.6, color=color, alpha=a, zorder=4)
-for x0, sgn in ((0.4, 1), (15.6, -1)):
-    trace(x0, 6.1, [(sgn * 0.8, 0), (0, -0.4), (sgn * 0.7, 0)])
-    trace(x0, 5.6, [(sgn * 0.5, 0), (0, -0.35), (sgn * 1.0, 0), (0, -0.3)])
-    trace(x0 + sgn * 0.2, 4.9, [(sgn * 0.9, 0), (0, 0.3)])
+# ------------------------------------------------------------------- helpers
+def hexrgb(c):
+    return np.array(to_rgb(c))
 
-# ------------------------------------------------------------------ floor
-floorg = LinearSegmentedColormap.from_list(
-    "floor", ["#324078", "#222C5C", "#171F48"])
-ax.imshow(grad, extent=(0, W, 0, HOR), cmap=floorg, origin="upper",
-          aspect="auto", zorder=1)
-# horizontal grid lines, perspective spacing
-for t in np.linspace(0, 1, 11)[1:]:
-    y = HOR - HOR * t ** 1.65
-    for lwm, a in ((3.4, 0.10), (1.0, 0.55)):
-        ax.plot([0, W], [y, y], color=AMBER if int(t * 10) % 2 else CYAN,
-                lw=1.1 * lwm, alpha=a * (1 - 0.5 * t) + 0.1, zorder=2)
-# radial lines to vanishing point
-for dxv in np.linspace(-26, 26, 27):
-    ax.plot([8, 8 + dxv], [HOR, -0.4], color="#FFB868", lw=0.9, alpha=0.20,
-            zorder=2)
-for lwm, a in ((4.0, 0.12), (1.4, 0.7)):
-    ax.plot([0, W], [HOR, HOR], color="#FFD9A0", lw=lwm, alpha=a, zorder=2)
+def ball(ax, x, y, r, color, zorder=6, rim="#8F6BD9"):
+    """Phong-shaded glossy sphere with neon rim light."""
+    N = 240
+    u = np.linspace(-1, 1, N)
+    xx, yy = np.meshgrid(u, u)
+    rr2 = xx ** 2 + yy ** 2
+    mask = rr2 <= 1.0
+    z = np.sqrt(np.clip(1 - rr2, 0, 1))
+    L = np.array([-0.45, 0.55, 0.70]); L = L / np.linalg.norm(L)
+    lam = np.clip(xx * L[0] + yy * L[1] + z * L[2], 0, 1)
+    spec = lam ** 60
+    rimv = np.clip(1 - z, 0, 1) ** 2.2
+    base = hexrgb(color)
+    img = np.zeros((N, N, 4))
+    col = (base * (0.22 + 0.78 * lam[..., None])
+           + np.array([1, 1, 1]) * spec[..., None] * 0.85
+           + hexrgb(rim) * rimv[..., None] * 0.45)
+    img[..., :3] = np.clip(col, 0, 1)
+    img[..., 3] = mask.astype(float)
+    ax.imshow(img, extent=(x - r, x + r, y - r, y + r), origin="lower",
+              zorder=zorder, interpolation="bilinear")
 
-# ------------------------------------------------------------------ helpers
-def glowdot(ax, x, y, r, color, z=9):
-    for m, a in ((3.0, 0.18), (1.8, 0.38), (1.0, 1.0)):
-        ax.add_patch(Circle((x, y), r * m, fc=color, ec="none", alpha=a,
-                            zorder=z))
+def glow_line(ax, xs, ys, color, lw=1.6, zorder=3):
+    for mult, a in ((4.5, 0.10), (2.5, 0.22), (1.0, 0.95)):
+        ax.plot(xs, ys, color=color, lw=lw * mult, alpha=a, zorder=zorder,
+                solid_capstyle="round")
 
-def shade(c, f):
-    rgb = np.array(to_rgb(c))
-    if f >= 0:
-        rgb = rgb + (1 - rgb) * f
-    else:
-        rgb = rgb * (1 + f)
-    return tuple(np.clip(rgb, 0, 1))
+def glow_text(ax, x, y, s, fs, color, zorder=9, ha="center", weight="bold"):
+    t = ax.text(x, y, s, ha=ha, va="center", fontsize=fs, color=color,
+                zorder=zorder, fontweight=weight)
+    t.set_path_effects([pe.Stroke(linewidth=6.0, foreground="white", alpha=0.9),
+                        pe.Stroke(linewidth=2.6, foreground="white", alpha=0.9),
+                        pe.Normal()])
 
-def rbox(ax, x, y, w, h, color, rs=0.12, z=5, ec="none", lw=0):
+def pedestal(ax, x, y, w, color=CYAN, zorder=3):
+    """Floating holo ring + light cone."""
+    ax.add_patch(Polygon([(x - 0.42 * w, y), (x + 0.42 * w, y),
+                          (x + 0.58 * w, y + 1.15), (x - 0.58 * w, y + 1.15)],
+                         fc=color, ec="none", alpha=0.06, zorder=zorder))
+    for ww, a in ((1.5, 0.12), (1.18, 0.30), (1.0, 0.85)):
+        ax.add_patch(Ellipse((x, y), w * ww, 0.16 * ww, fc="none", ec=color,
+                             lw=1.5, alpha=a, zorder=zorder + 1))
+
+def slab(ax, x, y, w, h, color, label, fs=7.6, zorder=5):
+    """Glowing glass data-slab (futuristic book)."""
+    for pad, a in ((0.045, 0.10), (0.02, 0.20)):
+        ax.add_patch(FancyBboxPatch((x - w / 2 - pad, y - h / 2 - pad),
+                     w + 2 * pad, h + 2 * pad,
+                     boxstyle="round,pad=0.01,rounding_size=0.05",
+                     fc="none", ec=color, lw=2, alpha=a, zorder=zorder))
     ax.add_patch(FancyBboxPatch((x - w / 2, y - h / 2), w, h,
-                 boxstyle=f"round,pad=0.012,rounding_size={rs}",
-                 fc=color, ec=ec, lw=lw, zorder=z))
+                 boxstyle="round,pad=0.01,rounding_size=0.05",
+                 fc=color, ec="white", lw=0.8, alpha=0.85, zorder=zorder + 1))
+    ax.add_patch(FancyBboxPatch((x - w / 2 + 0.03, y + h * 0.08), w - 0.06,
+                 h * 0.30, boxstyle="round,pad=0.005,rounding_size=0.03",
+                 fc="white", ec="none", alpha=0.30, zorder=zorder + 2))
+    ax.text(x, y - 0.01, label, ha="center", va="center", fontsize=fs,
+            color="white", zorder=zorder + 3, fontweight="bold")
 
-def robot(ax, x, y0, s, color, label_color=None, sleeping=False):
-    """Chunky toy robot, GAUSE-cover proportions. y0 = foot line."""
-    lc = label_color or color
-    dark, lite = shade(color, -0.32), shade(color, 0.45)
-    # floor reflection + shadow
-    ax.add_patch(Ellipse((x, y0 - 0.04 * s), 2.5 * s, 0.30 * s, fc="black",
-                         ec="none", alpha=0.30, zorder=4))
-    ax.add_patch(Ellipse((x, y0 - 0.30 * s), 1.9 * s, 0.55 * s, fc=lite,
-                         ec="none", alpha=0.18, zorder=4))
-    # legs + feet
-    for sx in (-0.42, 0.42):
-        rbox(ax, x + sx * s, y0 + 0.34 * s, 0.34 * s, 0.55 * s, dark,
-             rs=0.07, z=5)
-        rbox(ax, x + sx * s, y0 + 0.10 * s, 0.55 * s, 0.26 * s, color,
-             rs=0.09, z=6)
-        ax.add_patch(Ellipse((x + sx * s - 0.10 * s, y0 + 0.13 * s),
-                             0.22 * s, 0.08 * s, fc="white", alpha=0.5,
-                             zorder=7))
-    # body
-    rbox(ax, x, y0 + 1.10 * s, 1.45 * s, 1.15 * s, color, rs=0.18, z=6)
-    ax.add_patch(Ellipse((x + 0.52 * s, y0 + 1.05 * s), 0.45 * s, 1.0 * s,
-                         fc=dark, ec="none", alpha=0.35, zorder=7))
-    ax.add_patch(Ellipse((x - 0.42 * s, y0 + 1.42 * s), 0.55 * s, 0.35 * s,
-                         fc="white", ec="none", alpha=0.40, zorder=7))
-    # belly screen
-    rbox(ax, x, y0 + 1.10 * s, 0.78 * s, 0.62 * s, SCREEN, rs=0.10, z=8)
-    # arms
+def eyes(ax, x, y, r, dx=0.30, closed=False):
+    for sx in (-dx, dx):
+        if closed:
+            ax.add_patch(Arc((x + sx * r * 3, y), 0.55 * r, 0.45 * r,
+                             theta1=200, theta2=340, color=INK, lw=2.2,
+                             zorder=9, capstyle="round"))
+        else:
+            ax.add_patch(Circle((x + sx * r * 3, y), 0.26 * r, fc=INK,
+                                ec="none", zorder=9))
+            ax.add_patch(Circle((x + sx * r * 3 + 0.08 * r, y + 0.09 * r),
+                                0.09 * r, fc="white", ec="none", zorder=10))
+
+def blushes(ax, x, y, r):
     for sx in (-1, 1):
-        ax.add_patch(Ellipse((x + sx * 0.92 * s, y0 + 1.12 * s), 0.34 * s,
-                             0.78 * s, angle=-sx * 14, fc=color, ec="none",
-                             zorder=5))
-        ax.add_patch(Ellipse((x + sx * 0.92 * s, y0 + 1.12 * s), 0.34 * s,
-                             0.78 * s, angle=-sx * 14, fc="black", alpha=0.12,
-                             zorder=6))
-        glowdot(ax, x + sx * 1.00 * s, y0 + 0.72 * s, 0.10 * s,
-                shade(color, 0.2), z=7)
-    # neck + head dome
-    rbox(ax, x, y0 + 1.78 * s, 0.5 * s, 0.18 * s, dark, rs=0.05, z=5)
-    rbox(ax, x, y0 + 2.28 * s, 1.5 * s, 0.95 * s, color, rs=0.30, z=7)
-    ax.add_patch(Ellipse((x - 0.45 * s, y0 + 2.55 * s), 0.5 * s, 0.28 * s,
-                         fc="white", ec="none", alpha=0.55, zorder=8))
-    ax.add_patch(Ellipse((x + 0.55 * s, y0 + 2.20 * s), 0.35 * s, 0.7 * s,
-                         fc=dark, ec="none", alpha=0.30, zorder=8))
-    # ear pods
-    for sx in (-1, 1):
-        ax.add_patch(Ellipse((x + sx * 0.78 * s, y0 + 2.28 * s), 0.18 * s,
-                             0.34 * s, fc=dark, ec="none", zorder=6))
-        glowdot(ax, x + sx * 0.78 * s, y0 + 2.28 * s, 0.045 * s, CYAN, z=7)
-    # face screen
-    rbox(ax, x, y0 + 2.26 * s, 1.08 * s, 0.62 * s, SCREEN, rs=0.16, z=9)
-    # face
-    ey = y0 + 2.32 * s
-    if sleeping:
-        for sx in (-0.26, 0.26):
-            ax.add_patch(Arc((x + sx * s, ey), 0.30 * s, 0.26 * s,
-                             theta1=200, theta2=340, color=CYAN, lw=2.4,
-                             zorder=10, capstyle="round"))
-    else:
-        for sx in (-0.26, 0.26):
-            glowdot(ax, x + sx * s, ey, 0.085 * s, CYAN, z=10)
-            ax.add_patch(Circle((x + sx * s + 0.03 * s, ey + 0.03 * s),
-                                0.028 * s, fc="white", zorder=11))
-    sm = Arc((x, y0 + 2.16 * s), 0.34 * s, 0.22 * s, theta1=200, theta2=340,
-             color=CYAN, lw=2.2, zorder=10, capstyle="round")
-    ax.add_patch(sm)
-    sm.set_path_effects([pe.Stroke(linewidth=4.5, foreground=CYAN,
-                                   alpha=0.35), pe.Normal()])
-    # antenna
-    ax.plot([x, x], [y0 + 2.76 * s, y0 + 3.02 * s], color=dark, lw=2.4,
-            zorder=6, solid_capstyle="round")
-    glowdot(ax, x, y0 + 3.08 * s, 0.07 * s, shade(color, 0.3), z=7)
+        ax.add_patch(Ellipse((x + sx * 0.62 * r, y - 0.28 * r), 0.42 * r,
+                             0.22 * r, fc=MAGENTA, ec="none", alpha=0.5,
+                             zorder=9))
 
-def holo_label(ax, x, y, s, color, fs=11):
-    t = ax.text(x, y, s, ha="center", va="center", fontsize=fs,
-                color="white", zorder=10, fontweight="bold")
-    t.set_path_effects([pe.Stroke(linewidth=4.5, foreground=color,
-                                  alpha=0.6),
-                        pe.Stroke(linewidth=2.0, foreground=shade(color, -0.2),
-                                  alpha=0.9), pe.Normal()])
+def smile(ax, x, y, w):
+    ax.add_patch(Arc((x, y), w, 0.7 * w, theta1=200, theta2=340, color=INK,
+                     lw=2.0, zorder=9, capstyle="round"))
 
-# ------------------------------------------------------------------- title
-t = ax.text(8, 5.92, "ONE  PRINCIPLE,   THREE  SUBSTRATES", ha="center",
-            va="center", fontsize=19, color=NAVY, fontweight="bold",
-            zorder=9)
-t.set_path_effects([pe.Stroke(linewidth=6, foreground="white", alpha=0.85),
-                    pe.Normal()])
-t2 = ax.text(8, 5.48, "what survives a bounded budget is decided by structure — never by the reward or usage stream",
-             ha="center", va="center", fontsize=10.5, color="#3D4878",
-             zorder=9)
-t2.set_path_effects([pe.Stroke(linewidth=4, foreground="white", alpha=0.8),
-                     pe.Normal()])
+# --------------------------------------------------------------------- title
+glow_text(ax, W / 2, 5.55, "ONE  PRINCIPLE,  THREE  SUBSTRATES", 21, CYAN)
+sub = ax.text(W / 2, 5.08,
+              "what survives a bounded budget is decided by structure  —  never by the reward or usage stream",
+              ha="center", va="center", fontsize=11.5, color="#5A4B8C",
+              zorder=9)
+for x0, c in ((2.05, AMBER), (13.95, MINT)):
+    glow_line(ax, [x0, x0 + 1.15] if x0 < 8 else [x0 - 1.15, x0],
+              [5.55, 5.55], c, lw=1.6, zorder=8)
 
-# ------------------------------------------------------------------ robots
-FOOT = 1.00
-# GAUSE bot (amber) + four niche orbs overhead
-robot(ax, 3.1, FOOT, 0.78, "#F2A23C")
-orb_cols = ["#F25C5C", "#5BC98A", "#5B8FE8", "#A66BD9"]
-for i, c in enumerate(orb_cols):
-    ox = 3.1 + (i - 1.5) * 0.52
-    glowdot(ax, ox, FOOT + 2.62 + 0.14 * np.sin(i * 2.2), 0.085, c, z=9)
-# chest: 2x2 niche grid
-for i, c in enumerate(orb_cols):
-    gx = 3.1 - 0.12 + (i % 2) * 0.24
-    gy = FOOT + 0.78 + (i // 2) * 0.22
-    rbox(ax, gx, gy + 0.07, 0.18, 0.16, c, rs=0.03, z=9)
-holo_label(ax, 3.1, 0.52, "GAUSE — weight space", "#F2A23C", 10.5)
+# -------------------------------------------------------------------- panels
+panels = [(0.30, "GAUSE", "weight space", AMBER),
+          (5.58, "RISP", "decision space", CYAN),
+          (10.86, "NicheMem", "context space", VIOLET)]
+for x0, name, subt, neon in panels:
+    for pad, a in ((0.07, 0.08), (0.03, 0.16)):
+        ax.add_patch(FancyBboxPatch((x0 - pad, 0.52 - pad), 4.84 + 2 * pad,
+                     4.02 + 2 * pad,
+                     boxstyle="round,pad=0.02,rounding_size=0.24",
+                     fc="none", ec=neon, lw=2.5, alpha=a, zorder=2))
+    ax.add_patch(FancyBboxPatch((x0, 0.52), 4.84, 4.02,
+                 boxstyle="round,pad=0.02,rounding_size=0.24",
+                 fc="white", ec="none", alpha=0.45, zorder=2))
+    ax.add_patch(FancyBboxPatch((x0, 0.52), 4.84, 4.02,
+                 boxstyle="round,pad=0.02,rounding_size=0.24",
+                 fc="none", ec=neon, lw=1.6, alpha=0.95, zorder=3))
+    glow_text(ax, x0 + 2.42, 4.12, name, 15.5, neon)
+    ax.text(x0 + 2.42, 3.73, subt, ha="center", fontsize=10,
+            color="#5A4B8C", zorder=6)
 
-# RISP bot (teal-green, sleeping face) + crisis books under arm + chart
-robot(ax, 8.0, FOOT, 0.82, "#46B86B", sleeping=True)
-for i, (bc, by) in enumerate(zip(["#C9763C", "#E06060", "#F2484F"],
-                                 (0.18, 0.34, 0.50))):
-    rbox(ax, 9.15, FOOT + by, 0.92, 0.17, bc, rs=0.04, z=8)
-    ax.text(9.15, FOOT + by, f"CRISIS '{ ('08','20','22')[i] }", ha="center",
-            va="center", fontsize=5.6, color="white", zorder=9,
-            fontweight="bold")
-xs = np.linspace(6.45, 7.15, 7)
-ys = FOOT + 0.30 + np.array([0, .10, .04, .16, .10, .22, .30])
-for m, a in ((3.2, 0.15), (1.0, 0.95)):
-    ax.plot(xs, ys, color=CYAN, lw=1.6 * m, alpha=a, zorder=8,
-            solid_capstyle="round")
-holo_label(ax, 8.0, 0.52, "RISP — decision space", "#2E9956", 10.5)
+# ---- GAUSE: four glossy orb-finches on holo pedestals ----
+cols = [CORAL, MINT, CYAN, VIOLET]
+labs = ["R1", "R2", "R3", "R4"]
+for i, (c, rl) in enumerate(zip(cols, labs)):
+    x = 1.07 + i * 1.13
+    pedestal(ax, x, 1.42, 0.85, color=c)
+    ball(ax, x, 2.30, 0.42, c)
+    ax.add_patch(Polygon([(x + 0.38, 2.34), (x + 0.58, 2.28),
+                          (x + 0.38, 2.22)], fc=AMBER, ec=INK, lw=0.8,
+                         zorder=9))                       # beak
+    eyes(ax, x + 0.05, 2.40, 0.16)
+    blushes(ax, x + 0.02, 2.32, 0.30)
+    glow_text(ax, x, 1.42, rl, 8.5, c)
+ax.text(2.72, 0.84, "four specialists, four niches —\ncompetition does the assigning",
+        ha="center", fontsize=9.2, color="#4A3B6B", zorder=6,
+        linespacing=1.15)
 
-# NicheMem bot (violet) + memory slabs + runbook card in hand
-robot(ax, 12.9, FOOT, 0.78, "#9B6BD9")
-for i, (lab, c) in enumerate(zip(("D", "W", "Q"),
-                                 ("#5BC98A", "#5BB8E8", "#B88AE8"))):
-    rbox(ax, 11.55, FOOT + 0.30 + i * 0.27, 0.5, 0.20, c, rs=0.04, z=8)
-    ax.text(11.55, FOOT + 0.30 + i * 0.27, lab, ha="center", va="center",
-            fontsize=6.2, color="white", zorder=9, fontweight="bold")
-rbox(ax, 13.85, FOOT + 0.62, 0.62, 0.44, "#F2484F", rs=0.06, z=9)
-ax.text(13.85, FOOT + 0.62, "RUN\nBOOK", ha="center", va="center",
-        fontsize=5.8, color="white", zorder=10, fontweight="bold",
-        linespacing=0.9)
-holo_label(ax, 12.9, 0.52, "NicheMem — context space", "#9B6BD9", 10.5)
+# ---- RISP: orb-cat asleep on glowing data slabs; storm + holo chart ----
+slab(ax, 7.0, 1.52, 2.25, 0.40, "#D9756B", "CRISIS  '08")
+slab(ax, 7.0, 1.96, 2.25, 0.40, CORAL, "CRISIS  '20")
+slab(ax, 7.0, 2.40, 2.25, 0.40, "#FF5B7B", "CRISIS  '22")
+ball(ax, 7.0, 3.06, 0.44, "#6B8FE8")
+for ex in (-0.30, 0.30):                                  # ears
+    ax.add_patch(Polygon([(7.0 + ex - 0.13, 3.36), (7.0 + ex, 3.62),
+                          (7.0 + ex + 0.13, 3.38)], fc="#6B8FE8", ec=CYAN,
+                         lw=1.0, zorder=8))
+eyes(ax, 7.0, 3.10, 0.17, closed=True)
+blushes(ax, 7.0, 3.00, 0.32)
+smile(ax, 7.0, 2.94, 0.16)
+for i, (dx, dy, fs) in enumerate([(-0.66, 0.38, 8), (-0.88, 0.52, 10),
+                                  (-1.12, 0.68, 12)]):
+    t = ax.text(7.0 + dx, 3.06 + dy, "z", fontsize=fs, color=CYAN,
+                style="italic", fontweight="bold", zorder=9)
+    t.set_path_effects([pe.Stroke(linewidth=3, foreground=CYAN, alpha=0.35),
+                        pe.Normal()])
+# storm cloud + glowing bolt
+for dx, dy, r in [(-0.30, 0, 0.17), (0, 0.09, 0.23), (0.31, 0, 0.17)]:
+    ax.add_patch(Circle((9.35 + dx, 3.42 + dy), r, fc="#8C96C9", ec=VIOLET,
+                        lw=1.2, zorder=6))
+bolt = Polygon([(9.30, 3.20), (9.18, 2.88), (9.30, 2.88), (9.14, 2.52),
+                (9.46, 2.80), (9.34, 2.80), (9.48, 3.12)],
+               fc="#FFC95B", ec=AMBER, lw=1.0, zorder=7)
+ax.add_patch(bolt)
+glow_line(ax, [8.62, 8.95, 9.25, 9.60, 9.95],
+          [2.10, 2.18, 2.05, 2.22, 2.35], MINT, lw=1.6, zorder=6)
+ax.text(9.40, 1.78, "ready on day 1", ha="center", fontsize=8.6,
+        color=MINT, zorder=7, fontweight="bold")
+ax.text(8.0, 0.84, "sleeps through the calm, keeps every playbook —\nwakes up general across  '08 ≠ '20 ≠ '22",
+        ha="center", fontsize=9.2, color="#4A3B6B", zorder=6,
+        linespacing=1.15)
 
-# footer strip
-t3 = ax.text(8, 0.14, "reward-chasers forget what is dormant  —  structural owners never do  —  every prediction pre-registered, every refutation shipped",
-             ha="center", va="center", fontsize=9.2, color="#D8E2FF",
-             zorder=9, fontweight="bold")
-t3.set_path_effects([pe.Stroke(linewidth=3.5, foreground="#1B2350",
-                               alpha=0.7), pe.Normal()])
+# ---- NicheMem: orb-owl with goggle eyes hugging the runbook card ----
+for i, (lab, c) in enumerate([("daily", MINT), ("weekly", CYAN),
+                              ("quarterly", VIOLET)]):
+    slab(ax, 11.95 + i * 1.25, 3.02, 1.08, 0.44, c, lab, 7.0)
+glow_line(ax, [11.32, 15.28], [2.74, 2.74], VIOLET, lw=1.6, zorder=3)
+pedestal(ax, 13.28, 1.06, 1.15, color=VIOLET)
+ball(ax, 13.28, 1.95, 0.50, "#8F6BD9")
+for ex in (-0.34, 0.34):                                  # tufts
+    ax.add_patch(Polygon([(13.28 + ex - 0.10, 2.32), (13.28 + ex, 2.58),
+                          (13.28 + ex + 0.12, 2.34)], fc="#8F6BD9",
+                         ec=VIOLET, lw=1.0, zorder=8))
+for ex in (-0.20, 0.20):                                  # goggle eyes
+    ax.add_patch(Circle((13.28 + ex, 2.06), 0.155, fc="white", ec=INK,
+                        lw=1.2, zorder=9))
+    ax.add_patch(Circle((13.28 + ex, 2.06), 0.075, fc=INK, zorder=10))
+    ax.add_patch(Circle((13.28 + ex + 0.03, 2.09), 0.025, fc="white",
+                        zorder=11))
+ax.add_patch(Polygon([(13.22, 1.94), (13.34, 1.94), (13.28, 1.84)],
+                     fc=AMBER, ec=INK, lw=0.8, zorder=9))
+blushes(ax, 13.28, 1.96, 0.34)
+slab(ax, 13.28, 1.52, 1.05, 0.40, "#FF5B7B", "runbook", 7.4, zorder=8)
+ax.text(13.28, 0.84, "the dormant runbook gets an owner,\nnot an eviction score",
+        ha="center", fontsize=9.2, color="#4A3B6B", zorder=6,
+        linespacing=1.15)
+
+# -------------------------------------------------------------------- footer
+ax.add_patch(FancyBboxPatch((2.1, 0.06), 11.8, 0.38,
+             boxstyle="round,pad=0.02,rounding_size=0.18", fc="white",
+             ec=VIOLET, lw=1.2, alpha=0.75, zorder=6))
+ax.text(8, 0.25, "reward-chasers forget what is dormant   —   structural owners never do   —   every prediction pre-registered, every refutation shipped",
+        ha="center", va="center", fontsize=9.8, color="#4A3B6B", zorder=7,
+        fontweight="bold")
 
 fig.tight_layout(pad=0.25)
-fig.savefig("research_banner.png", facecolor="#C9D4F2",
-            bbox_inches="tight")
+fig.savefig("research_banner.png", facecolor="#F2EAF7", bbox_inches="tight")
 print("saved research_banner.png")
