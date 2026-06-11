@@ -5,7 +5,7 @@
 </div> -->
 
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/24b4cc14-db45-42cc-8f9d-91d85ca173bf" width="50%" />
+  <img src="assets/research_banner.png" alt="One principle, three substrates: GAUSE (weight space), RISP (decision space), NicheMem (context space) — what survives a bounded budget must be decided by structure, not by the reward or usage stream" width="95%" />
 </div>
 
 I am a Master's student at **UPenn** (Applied Math & Computational Science) and a graduate of **Bowdoin College** (Math & Economics), originally from Shanghai, China.
@@ -20,22 +20,25 @@ I operationalize ecological dynamics (competitive exclusion, niche partitioning)
 
 ---
 
-### 🧪 Current Research Focus
+### 🧪 Current Research
 **Emergent specialization and memory in learner populations under non-stationarity**
 
+One principle — *what survives a bounded budget must be decided by structure, not by the reward/usage stream* — instantiated across three substrates:
 
-- GAUSE (https://github.com/HowardLiYH/GAUSE) — competitive exclusion as a coordination-free assignment mechanism. Central finding: retention of dormant-regime knowledge tracks a single property — reward-independence of capacity assignment. Reward-driven allocators (monoliths, learned MoE routers) are structurally blind to dormant tasks; emergent competition reaches the protective assignment with no gate, schedule, or diversity objective, matching a hand-designed oracle it was never shown.
-- RISP (https://github.com/HowardLiYH/RISP) — the financial successor: decision-focused (predict-then-optimize) strategy pools. Decomposes market non-stationarity into two independently-owned failure modes — between-regime forgetting (fixed by allocation) and within-regime drift (fixed by an episode-invariance objective) — with a super-additive interaction: neither fix works without the other. Includes the honest audits: a pre-registered real-data gate that returned null (shipped, not buried) and a measured boundary where the mechanism inverts.
-- NicheMem (https://github.com/HowardLiYH/NicheMem) (context space) — the same principle transported to long-horizon agent memory: usage-driven policies (LRU paging, usage-weighted compression, learned utility) erase dormant-family skills as a class — what the score measures is irrelevant; that it is a function of the usage stream is decisive. Competitive memory ownership retains dormant runbooks exactly, recovering 97% of a privileged oracle with no labels, quotas, or trained router. Mechanism-level evidence today; the LLM tier is pre-registered (10 predictions, 4 refuted and reported).
+* **[GAUSE](https://github.com/HowardLiYH/GAUSE)** *(weight space — learner populations)* — competitive exclusion as a coordination-free assignment mechanism. Central finding: retention of dormant-regime knowledge tracks a single property — **reward-independence of capacity assignment**. Reward-driven allocators (capacity-bounded monoliths, learned MoE routers) are structurally blind to dormant tasks; emergent competition reaches the protective assignment with no gate, no schedule, no diversity objective — matching a hand-designed oracle it was never shown.
 
-### ⬇️ Next 
-- porting reward-independent retention to populations of LLM agents — capacity becomes context and memory, dormancy becomes stale expertise. The mechanism is validated; the substrate is the open question.
-- NicheMem's LLM tier — the decisive gate experiment its pre-registration commits to — and RISP's equities flagship (CRSP, 7 crisis episodes, gate pre-registered).
+* **[RISP](https://github.com/HowardLiYH/RISP)** *(decision space — trading strategy pools)* — the financial successor: decision-focused (predict-then-optimize) strategy pools. Decomposes market non-stationarity into two independently-owned failure modes — **between-regime forgetting** (fixed by allocation) and **within-regime drift** (fixed by an episode-invariance objective) — with a measured *super-additive* interaction: neither fix works without the other. Ships its honest audits: a pre-registered real-data gate that returned null (shipped, not buried) and the measured boundary where the mechanism inverts.
+
+* **[NicheMem](https://github.com/HowardLiYH/NicheMem)** *(context space — long-horizon agent memory)* — the same principle transported to agent memory: usage-driven policies (LRU paging, usage-weighted compression, learned utility) erase dormant-family skills *as a class* — what the score measures is irrelevant; that it is a function of the usage stream is decisive. Competitive memory ownership retains dormant runbooks exactly, recovering 97% of a privileged oracle with no labels, quotas, or trained router. Mechanism-level evidence today; the LLM tier is pre-registered (10 predictions, 4 refuted and reported).
+
+### ⬇️ Next
+* **NicheMem's LLM tier** — the decisive gate experiment its pre-registration commits to: capacity becomes context and memory, dormancy becomes stale expertise. The mechanism is validated; the substrate is the open question.
+* **RISP's equities flagship** — CRSP S&P 500 constituents, 7 crisis episodes, structure gate pre-registered.
 
 **Key Results:**
-* 🚀 **Efficiency:** matches hand-built oracles without being shown them (GAUSE, RISP p=0.72, NicheMem 97%) on laptop CPUs;
-* 🧠 **Emergence:** specialization and ownership arise from local competition, never central design; 
-* 🔍 **Honesty:** every project pre-registers predictions and ships its refutations — across the three repos, seven pre-registered predictions were refuted and reported as findings.
+* 🚀 **Efficiency:** matches hand-built oracles without being shown them (GAUSE; RISP, p = 0.72; NicheMem, 97%) — all on laptop CPUs.
+* 🧠 **Emergence:** specialization and ownership arise from local competition, never central design.
+* 🔍 **Honesty:** every project pre-registers its predictions and ships its refutations — across the three repos, seven pre-registered predictions were refuted and reported as findings.
 
 ---
 
