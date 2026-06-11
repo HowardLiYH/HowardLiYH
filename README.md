@@ -5,7 +5,7 @@
 </div> -->
 
 <div align="center">
-  <img src="assets/research_banner.png" alt="One principle, three substrates: GAUSE (weight space), RISP (decision space), NicheMem (context space) — what survives a bounded budget must be decided by structure, not by the reward or usage stream" width="95%" />
+  <img src="assets/research_banner.png" alt="One principle, three substrates: GAUSE (weight space), RISP (decision space), NicheMem (context space) — what survives a bounded budget must be decided by structure, not by the reward or usage stream" width="100%" />
 </div>
 
 I am a Master's student at **UPenn** (Applied Math & Computational Science) and a graduate of **Bowdoin College** (Math & Economics), originally from Shanghai, China.
