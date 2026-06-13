@@ -40,6 +40,10 @@ One principle — *what survives a bounded budget must be decided by structure, 
 * 🧠 **Emergence:** specialization and ownership arise from local competition, never central design.
 * 🔍 **Honesty:** every project pre-registers its predictions and ships its refutations — across the three repos, seven pre-registered predictions were refuted and reported as findings.
 
+
+**Key Notes:**
+* ❓ **"Where does GAUSE most directly plug in?"** A large MoE model whose rarely-triggered experts get overwritten because they emit no routing signal — GAUSE predicts the gate forgets them and competition-based ownership retains them.
+
 ---
 
 ### 📫 Connect with Me
